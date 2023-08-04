@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+    <title>Usando O Interval</title>
+<script language="JavaScript" type="text/javascript">
+<!--
+   var timer=null; // Definimos o objeto aqui para que ele seja global, mas ele vai ser inicializado somente na função que inicializa o relógio
+  
+                   /* Função para alterar o estado dos botões para não 
+                      permitir dois agendamentos seguidos sem um "desagendamento"
+                      entre eles
+                   */
+                    function mudarBotoes(rodando){ // parametro diz se o relogio esta rodando
+                           frm.btnIniciar.disabled = rodando;
+                           frm.btnParar.disabled = !rodando;
+                    }
+	   function iniciaRelogio(){
+  		  timer = setInterval( function(){mostraHora();},1000); // Agenda a execução da função mostraHora() para cada um segundo
+                                    mudarBotoes(true);
+		 }
+	   function paraRelogio(){
+		     clearInterval(timer); // Elimina o agendamento feito em timer
+                                       mudarBotoes(false);
+		 }
+                     function mostraHora(){
+		    horaAqui.innerHTML = 
+				(new Date()).toLocaleTimeString(); // retorna o horário atual no formato HH:MM:SS
+		 }
+//-->
+</script>
+
+</head>
+<body onLoad="mostraHora();iniciaRelogio();">
+  <H1>Horário atual <span id="horaAqui"></span>.</H1>
+	<HR>
+<form name="frm">
+	<button name = "btnIniciar" id="btnIniciar" onClick="iniciaRelogio();">Iniciar</button>
+	<button id="btnParar" onClick="paraRelogio();">Parar</button>
+</form>
+</body>
+</html>
